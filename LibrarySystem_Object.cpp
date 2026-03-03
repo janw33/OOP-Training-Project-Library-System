@@ -1,20 +1,38 @@
-﻿// LibrarySystem_Object.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
-//
+﻿#include <iostream>
+#include <vector>
 
-#include <iostream>
+using namespace std;
 
+class User {
+    string name;
+    string surname;
+    int age;
+public: 
+    User(string n, string s, int a){
+        name = n;
+        surname = s;
+        age = a;
+}
+};
+
+class LibrarySystem {
+public:
+    void Print_menu()
+    {
+        cout << "Hello! What do you want to do?";
+        cout << endl << "1 - Add new book?";
+        cout << endl << "2 - Add new user?";
+        cout << endl << "3 - Borrow the book?";
+        cout << endl << "4 - Returne the book";
+        cout << endl << "5 - Show list of available books";
+    }
+};
 int main()
 {
-    std::cout << "Hello World!\n";
+    LibrarySystem General;
+    int choice;
+    General.Print_menu();
+
+    return 0;
 }
 
-// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
-// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
-
-// Porady dotyczące rozpoczynania pracy:
-//   1. Użyj okna Eksploratora rozwiązań, aby dodać pliki i zarządzać nimi
-//   2. Użyj okna programu Team Explorer, aby nawiązać połączenie z kontrolą źródła
-//   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
-//   4. Użyj okna Lista błędów, aby zobaczyć błędy
-//   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
-//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
