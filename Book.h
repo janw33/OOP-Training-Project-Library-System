@@ -6,10 +6,11 @@ class Book
 private:
     std::string name;
     bool available;
+
 public:
-    Book(std::string, bool);
-    std::string get_name();
-    bool get_is_this_book_available();
+    Book(const std::string& name, bool available);
+    std::string get_name() const;
+    bool is_available() const;
     void borrow_book();
     void return_book();
 };

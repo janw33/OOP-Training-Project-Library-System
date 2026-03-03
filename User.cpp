@@ -5,32 +5,33 @@
 
     using namespace std;
 
-    User::User(string n, string s)
+    User::User(string n, string s, int i)
     {
         name = n;
         surname = s;
+        ID = i;
     }
-    string User::get_name()
+    string User::get_name() const
     {
         return name;
     }
-    string User::get_surname()
+    string User::get_surname() const
     {
         return surname;
     }
-    vector<string>User::get_List_of_user_books()
+    int User::get_ID() const
     {
-        return List_of_user_books;
+        return ID;
     }
-    int User::get_size_of_List_of_user_books()
+    const vector<string>& User::get_user_books() const
     {
-        return List_of_user_books.size();
+        return user_books;
     }
-    void User::user_add_book(string help)
+    void User::add_book(string help)
     {
-        List_of_user_books.push_back(help);
+        user_books.push_back(help);
     }
-    void User::user_remove_book(string help)
+    void User::remove_book(string help)
     {
-        List_of_user_books.erase(remove(List_of_user_books.begin(), List_of_user_books.end(), help), List_of_user_books.end());
+        user_books.erase(remove(user_books.begin(), user_books.end(), help), user_books.end());
     }

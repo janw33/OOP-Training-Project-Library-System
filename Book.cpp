@@ -3,16 +3,16 @@
 
 using namespace std;
 
-Book::Book(string n, bool a)
+Book::Book(const string& n, bool a)
 {
     name = n;
     available = a;
 }
-string Book::get_name()
+string Book::get_name() const
 {
     return name;
 }
-bool Book::get_is_this_book_available()
+bool Book::is_available() const
 {
     return available;
 }

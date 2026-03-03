@@ -2,14 +2,21 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <ctime>
+#include <fstream>
 #include "LibrarySystem.h"
 
 using namespace std;
 
 int main()
 {
+    srand(time(NULL));
+
     LibrarySystem General;
-    General.reload_file_into_library();
+
+    General.load_library();
+    General.load_users();
+
     while (true)
     {
         General.print_menu();
@@ -35,19 +42,31 @@ int main()
         }
         case 4:
         {
-            General.return_the_book();
+            General.return_book();
             break;
         }
         case 5:
         {
-            General.list_of_books();
+            General.print_lists();
             break;
         }
         case 6:
         {
             cout << "Goodbye!" << endl;
-            General.convert_library_into_file();
+            General.save_library();
+            General.save_users();
             return 0;
+            break;
+        }
+        case 7:
+        {
+            cout << "Program is restarting" << endl;
+            ofstream user_list("user_list.txt");
+            user_list.close();
+            ofstream book_list("book_list.txt");
+            book_list.close();
+            return 0;
+            break;
         }
         default:
         {
