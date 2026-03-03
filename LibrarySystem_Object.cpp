@@ -9,6 +9,7 @@ using namespace std;
 int main()
 {
     LibrarySystem General;
+    General.reload_file_into_library();
     while (true)
     {
         General.print_menu();
@@ -45,6 +46,7 @@ int main()
         case 6:
         {
             cout << "Goodbye!" << endl;
+            General.convert_library_into_file();
             return 0;
         }
         default:

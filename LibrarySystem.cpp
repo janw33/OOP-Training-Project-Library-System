@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 #include "Book.h"
 #include "User.h"
 #include "LibrarySystem.h"
@@ -50,32 +51,39 @@ using namespace std;
     void LibrarySystem::borrow_book() // dodaj sprawdzenie pozniej!
     {
         cout << "Who want to borrow the book?" << endl;
-        for (int i = 0; i < users.size(); i++)
+        if (users.size() != 0)
         {
-            cout << i + 1 << ". " << users[i].get_name() << " " << users[i].get_surname() << endl;
-        }
-        int user_choice;
-        cin >> user_choice;
-        cout << "Which book he want to borrow?" << endl;
-        if (is_there_any_book())
-        {
-            for (int i = 0; i < library.size(); i++)
+            for (int i = 0; i < users.size(); i++)
             {
-                if (library[i].get_is_this_book_available())
-                {
-                    cout << i + 1 << ". " << library[i].get_name() << endl;
-                }
+                cout << i + 1 << ". " << users[i].get_name() << " " << users[i].get_surname() << endl;
             }
-            int book_choice;
-            cin >> book_choice;
-            user_choice -= 1; // The user selects a number starting from 1, so we need to subtract 1 to match the program's indexing.
-            book_choice -= 1;
-            users[user_choice].user_add_book(library[book_choice].get_name());
-            library[book_choice].borrow_book();
+            int user_choice;
+            cin >> user_choice;
+            cout << "Which book he want to borrow?" << endl;
+            if (is_there_any_book())
+            {
+                for (int i = 0; i < library.size(); i++)
+                {
+                    if (library[i].get_is_this_book_available())
+                    {
+                        cout << i + 1 << ". " << library[i].get_name() << endl;
+                    }
+                }
+                int book_choice;
+                cin >> book_choice;
+                user_choice -= 1; // The user selects a number starting from 1, so we need to subtract 1 to match the program's indexing.
+                book_choice -= 1;
+                users[user_choice].user_add_book(library[book_choice].get_name());
+                library[book_choice].borrow_book();
+            }
+            else
+            {
+                cout << "There is no book available" << endl;
+            }
         }
         else
         {
-            cout << "There is no book available" << endl;
+            cout << "There is no users!" << endl;
         }
     }
 
@@ -167,4 +175,45 @@ using namespace std;
             }
             }
         }
+    }
+
+    void LibrarySystem::convert_library_into_file()
+    {
+        ofstream users("library.txt");
+
+        for (int i = 0; i < library.size(); i++)
+        {
+            users <<"Nazwa ksiazki to: " << library[i].get_name() << endl;
+            if (library[i].get_is_this_book_available())
+                users << "Czy ta ksiazka jest w bilbiotece: TAK" << endl;
+            else
+                users << "Czy ta ksiazka jest w bilbiotece: NIE" << endl;
+        }
+    }
+
+    void LibrarySystem::reload_file_into_library()
+    {
+        ifstream users("library.txt");
+
+        if (!users.is_open())
+        {
+            cout << "File did not open!" << endl;
+            return;
+        }
+        string help_name;
+        string help;
+        bool temp;
+        while (getline(users, help_name))
+        {
+            help_name.erase(0 , 18);
+            getline(users, help);
+            if (help == "Czy ta ksiazka jest w bilbiotece: TAK")
+                temp = true;
+            else
+                temp = false;
+
+            library.emplace_back(help_name, temp);
+        }
+
+        users.close();
     }

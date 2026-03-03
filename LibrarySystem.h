@@ -15,5 +15,6 @@ public:
     void borrow_book();
     void return_the_book();
     void list_of_books();
-    
+    void convert_library_into_file();
+    void reload_file_into_library();
 };
