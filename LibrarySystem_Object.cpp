@@ -9,6 +9,7 @@ class User {
     string name;
     string surname;
     int age;
+    vector<string>List_of_user_books;
 public: 
     User(string n, string s, int a)
     {
@@ -24,6 +25,10 @@ public:
     {
         return surname;
     }
+    void user_add_book(string help)
+    {
+        List_of_user_books.push_back(help);
+    }
 };
 
 class Book
@@ -35,6 +40,10 @@ public:
     {
         name = n;
         available = a;
+    }
+    void borrow_book()
+    {
+        available = false;
     }
     string getname()
     {
@@ -83,6 +92,32 @@ public:
         cin >> help_age;
         User help(help_name, help_surname, help_age); //temporary adding user and pushing him into the list
         users.push_back(help);
+    }
+
+    void borrow_book() // dodaj sprawdzenie pozniej!
+    {
+        int j = 1; // j is a cosmetical variable!
+        cout << "Which book do you want to borrow?" << endl;
+        for (int i = 0; i < users.size(); i++)
+        {
+            cout << i + 1 << ". " << users[i].getname() << " " << users[i].getsurname() << endl;
+        }
+        int user_choice;
+        cin >> user_choice;
+        for (int i = 0; i < library.size(); i++)
+        {
+            if (library[i].getbool())
+            {
+                cout << j << ". " << library[i].getname() << endl;
+                j++;
+            }
+        }
+        int book_choice;
+        cin >> book_choice;
+        user_choice -= 1; // The user selects a number starting from 1, so we need to subtract 1 to match the program's indexing.
+        book_choice -= 1;
+        users[user_choice].user_add_book(library[book_choice].getname());
+        library[book_choice].borrow_book();
     }
 
     void list_of_books()
@@ -165,6 +200,7 @@ int main()
         }
         case 3:
         {
+            General.borrow_book();
             break;
         }
         case 4:
