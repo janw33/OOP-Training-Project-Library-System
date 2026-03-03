@@ -10,31 +10,46 @@ class User {
     string surname;
     int age;
 public: 
-    User(string n, string s, int a){
+    User(string n, string s, int a)
+    {
         name = n;
         surname = s;
         age = a;
-}
+    }
+    string getname()
+    {
+        return name;
+    }
+    string getsurname()
+    {
+        return surname;
+    }
 };
 
-class Library
+class Book
 {
-    vector<string>List_of_all_books;
-    vector<string>List_of_available_books;
-    vector<string>List_of_unavailable_books;
+    string name;
+    bool available;
 public:
-
-    void add_book_library(string help)
+    Book(string n = "", bool a = true)
     {
-        List_of_all_books.push_back(help);
-        List_of_available_books.push_back(help);
+        name = n;
+        available = a;
+    }
+    string getname()
+    {
+        return name;
+    }
+    bool getbool()
+    {
+        return available;
     }
 };
 
 class LibrarySystem {
 
-Library library;
-vector<User>users;
+    vector<Book>library;
+    vector<User>users;
 
 public:
     void print_menu()
@@ -52,7 +67,7 @@ public:
         cout <<"Give the name of book you want to add" << endl;
         string help;
         getline(cin, help);
-        library.add_book_library(help);
+        library.push_back(Book(help, true));
     }
     
     void add_user() 
@@ -69,18 +84,75 @@ public:
         User help(help_name, help_surname, help_age); //temporary adding user and pushing him into the list
         users.push_back(help);
     }
+
+    void list_of_books()
+    {
+        int help_choice=0;
+        while (help_choice != 4)
+        {
+            cout << "Which list of book do you want to see?" << endl;
+            cout << "1 - List of all books" << endl;
+            cout << "2 - List of available books" << endl;
+            cout << "3 - List of unavailable books" << endl;
+            cout << "4 - exit" << endl;
+            cin >> help_choice;
+            switch (help_choice)
+            {
+            case 1:
+            {
+                for (int i = 0; i < library.size(); i++)
+                {
+                    cout << i + 1 << ". " << library[i].getname() << endl;
+                }
+                break;
+            }
+            case 2:
+            {
+                for (int i = 0; i < library.size(); i++)
+                {
+                    if (library[i].getbool())
+                    {
+                        cout << i + 1 << ". " << library[i].getname() << endl;
+                    }
+                }
+                break;
+            }
+            case 3:
+            {
+                for (int i = 0; i < library.size(); i++)
+                {
+                    if (library[i].getbool() == false)
+                    {
+                        cout << i + 1 << ". " << library[i].getname() << endl;
+                    }
+                }
+                break;
+            }
+            case 4:
+            {
+                break;
+            }
+            default:
+            {
+                cout << "This is not an option!" << endl;
+                break;
+            }
+            }
+        }
+    }
 };
 int main()
 {
     LibrarySystem General;
-
-    General.print_menu();
-    int choice;
-    cin >> choice;
-    cin.ignore();
-
-    switch (choice)
+    while (true)
     {
+        General.print_menu();
+        int choice;
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice)
+        {
         case 1:
         {
             General.add_book_system();
@@ -101,12 +173,14 @@ int main()
         }
         case 5:
         {
+            General.list_of_books();
             break;
         }
         default:
         {
             cout << endl << "This is not an option!";
             break;
+        }
         }
     }
     return 0;
