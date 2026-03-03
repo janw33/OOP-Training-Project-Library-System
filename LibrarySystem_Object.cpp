@@ -24,43 +24,57 @@ class Library
     vector<string>List_of_unavailable_books;
 public:
 
-    void add_book_to_library(string help)
+    void add_book_library(string help)
     {
         List_of_all_books.push_back(help);
         List_of_available_books.push_back(help);
-        List_of_unavailable_books.push_back(help);
     }
 };
 
 class LibrarySystem {
 
-Library General_library;
+Library library;
+vector<User>users;
 
 public:
-    void Print_menu()
+    void print_menu()
     {
-        cout << "Hello! What do you want to do?";
-        cout << "1 - Add new book?";
-        cout << "2 - Add new user?";
-        cout << "3 - Borrow the book?";
-        cout << "4 - Returne the book";
-        cout << "5 - Show list of available books";
+        cout << "Hello! What do you want to do?"<<endl;
+        cout << "1 - Add new book?" << endl;
+        cout << "2 - Add new user?" << endl;
+        cout << "3 - Borrow the book?" << endl;
+        cout << "4 - Returne the book" << endl;
+        cout << "5 - Show list of available books" << endl;
     }
 
-    void add_book()
+    void add_book_system()
     {
         cout <<"Give the name of book you want to add" << endl;
         string help;
         getline(cin, help);
-        General_library.add_book_to_library(help);
+        library.add_book_library(help);
     }
-
+    
+    void add_user() 
+    {
+        string help_name;
+        string help_surname;
+        int help_age;
+        cout << "Give me your name" << endl;
+        cin >> help_name;
+        cout << "Give me your surname" << endl;
+        cin >> help_surname;
+        cout << "Give me your age" << endl;
+        cin >> help_age;
+        User help(help_name, help_surname, help_age); //temporary adding user and pushing him into the list
+        users.push_back(help);
+    }
 };
 int main()
 {
     LibrarySystem General;
 
-    General.Print_menu();
+    General.print_menu();
     int choice;
     cin >> choice;
     cin.ignore();
@@ -69,11 +83,12 @@ int main()
     {
         case 1:
         {
-            General.add_book();
+            General.add_book_system();
             break;
         }
         case 2:
         {
+            General.add_user();
             break;
         }
         case 3:
