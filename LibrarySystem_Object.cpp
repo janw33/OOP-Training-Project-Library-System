@@ -15,6 +15,13 @@ public:
 }
 };
 
+class Library
+{
+    vector<string>List_of_all_books;
+    vector<string>List_of_available_books;
+    vector<string>List_of_unavailable_books;
+};
+
 class LibrarySystem {
 public:
     void Print_menu()
@@ -30,9 +37,39 @@ public:
 int main()
 {
     LibrarySystem General;
-    int choice;
+    
     General.Print_menu();
+    int choice;
+    cin >> choice;
 
+    switch (choice)
+    {
+        case 1:
+        {
+            break;
+        }
+        case 2:
+        {
+            break;
+        }
+        case 3:
+        {
+            break;
+        }
+        case 4:
+        {
+            break;
+        }
+        case 5:
+        {
+            break;
+        }
+        default:
+        {
+            cout << endl << "This is not an option!";
+            break;
+        }
+    }
     return 0;
 }
 
