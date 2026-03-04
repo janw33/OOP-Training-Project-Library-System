@@ -25,13 +25,13 @@
     }
     const vector<string>& User::get_user_books() const
     {
-        return user_books;
+        return user_ID_books;
     }
-    void User::add_book(string help)
+    void User::add_ID_book(string help)
     {
-        user_books.push_back(help);
+        user_ID_books.push_back(help);
     }
-    void User::remove_book(string help)
+    void User::remove_ID_book(string help)
     {
-        user_books.erase(remove(user_books.begin(), user_books.end(), help), user_books.end());
+        user_ID_books.erase(remove(user_ID_books.begin(), user_ID_books.end(), help), user_ID_books.end());
     }

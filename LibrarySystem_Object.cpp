@@ -21,7 +21,7 @@ int main()
     {
         General.print_menu();
         int choice;
-        cin >> choice;
+        choice = General.get_int_input();
         cin.ignore();
         General.clearScreen();
         switch (choice)

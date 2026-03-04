@@ -5,24 +5,35 @@
 
 class LibrarySystem {
 private:
+    //data:
     std::vector<Book>library;
     std::vector<User>users;
-    bool has_books(); //check is there any books available
-    //safety methods
+
+    //safety methods private
     bool check_user_choice(int x, int &help); 
     bool check_book_choice(int x, int &help);
-    //print
+    bool has_available_books();
+    bool has_unavailable_books();
+    bool has_user_id(int id);
+    bool has_book_id(int id);
+    //print:
+    void print_menu_lists();
     void show_users();
+    void show_all_books();
     void show_avilable_books();
+    void show_unavailable_books();
     void show_user_books(int user_choice);
+
 public:
+    // input:
+    int get_int_input();
     // cosmetical methods:
     void Pause(); 
     void clearScreen(); 
 
     // program functions:
     void print_menu();
-    void add_book(); // add book to vector library
+    void add_book(); 
     void add_user(); 
     void borrow_book();
     void return_book();

@@ -27,7 +27,7 @@ using namespace std;
     #endif
     }
 
-    bool LibrarySystem::has_books()
+    bool LibrarySystem::has_available_books()
     {
         for (int i = 0; i < library.size(); i++)
         {
@@ -35,6 +35,57 @@ using namespace std;
                 return true;
         }
         return false;
+    }
+
+    bool LibrarySystem::has_unavailable_books()
+    {
+        for (int i = 0; i < library.size(); i++)
+        {
+            if (!library[i].is_available())
+                return true;
+        }
+        return false;
+    }
+
+    bool LibrarySystem::has_user_id(int id)
+    {
+        for (int i = 0; i < users.size(); i++)
+        {
+            if (to_string(id) == users[i].get_ID())
+                return true;
+        }
+        return false;
+    }
+
+    bool LibrarySystem::has_book_id(int id)
+    {
+        for (int i = 0; i < library.size(); i++)
+        {
+            if (to_string(id) == library[i].get_ID())
+                return true;
+        }
+        return false;
+    }
+
+    void LibrarySystem::print_menu_lists()
+    {
+        cout << "Which list of book do you want to see?" << endl;
+        cout << "1 - List of all books" << endl;
+        cout << "2 - List of available books" << endl;
+        cout << "3 - List of unavailable books" << endl;
+        cout << "4 - exit" << endl;
+    }
+
+    int LibrarySystem::get_int_input()
+    {
+        int x;
+        while (!(cin >> x))
+        {
+            cout << "You must enter a number: ";
+            cin.clear();
+            cin.ignore(10000, '\n');
+        }
+        return x;
     }
 
     bool LibrarySystem::check_user_choice(int x, int &help)
@@ -54,7 +105,7 @@ using namespace std;
     {
         for (int i = 0; i < library.size(); i++)
         {
-            if (to_string(x) == library[i].get_ID())
+            if (to_string(x) == library[i].get_ID() && library[i].is_available() == true)
             {
                 help = i;
                 return true;
@@ -65,9 +116,17 @@ using namespace std;
 
     void LibrarySystem::show_users()
     {
-        for (int i = 0; i < users.size(); i++) // showing list of users
+        for (int i = 0; i < users.size(); i++) 
         {
             cout << users[i].get_ID() << " - " << users[i].get_name() << " " << users[i].get_surname() << endl;
+        }
+    }
+
+    void LibrarySystem::show_all_books() 
+    {
+        for (int i = 0; i < library.size(); i++)
+        {
+            cout << library[i].get_ID() << " - " << library[i].get_name() << endl;
         }
     }
 
@@ -76,6 +135,17 @@ using namespace std;
         for (int i = 0; i < library.size(); i++) 
         {
             if (library[i].is_available())
+            {
+                cout << library[i].get_ID() << " - " << library[i].get_name() << endl;
+            }
+        }
+    }
+
+    void LibrarySystem::show_unavailable_books()
+    {
+        for (int i = 0; i < library.size(); i++)
+        {
+            if (library[i].is_available() == false)
             {
                 cout << library[i].get_ID() << " - " << library[i].get_name() << endl;
             }
@@ -107,28 +177,33 @@ using namespace std;
         cout << "Enter book name: " << endl;
         string help;
         getline(cin, help);
-        int help_ID = rand() % 99999 + 1;
+        int help_ID = rand() % 999999 + 1;
+        while (has_book_id(help_ID))
+        {
+            help_ID = rand() % 999999 + 1;
+        }
         library.emplace_back(help, to_string(help_ID), true);
-        LibrarySystem::clearScreen();
+        clearScreen();
     }
 
     void LibrarySystem::add_user()
     {
         string help_name;
         string help_surname;
-        int help_ID = rand() % 99999 + 1;
-
+        int help_ID = rand() % 999999 + 1;
+        while (has_user_id(help_ID))
+        {
+            help_ID = rand() % 999999 + 1;
+        }
         cout << "Enter your name" << endl; cin >> help_name;
         cout << "Enter your surname" << endl; cin >> help_surname;
-
-        //temporary user added to the list
         User help(help_name, help_surname, to_string(help_ID));
         users.push_back(help);
 
-        LibrarySystem::clearScreen();
+        clearScreen();
     }
 
-    void LibrarySystem::borrow_book() // dodaj sprawdzenie pozniej!
+    void LibrarySystem::borrow_book() 
     {
         int user_choice;
         int book_choice;
@@ -138,55 +213,55 @@ using namespace std;
         if (users.empty()) 
         {
             cout << "There are no users!" << endl;
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
             return;
         }
 
         cout << "Enter user ID:" << endl;
         show_users();
-        cin >> user_choice;
+        user_choice = get_int_input();
 
         if (!check_user_choice(user_choice, user_index))
         {
             cout << "User ID is writed incorrectly!" << endl;
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
             return;
         }
 
         if (users[user_index].get_user_books().size() >= 3)
         {
             cout << "User can't borrow more than 3 books" << endl;
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
         return;
         }
 
-        if(!has_books()) //if there are no available books they can't be shown
+        if(!has_available_books()) 
         {
             cout << "There is no book available" << endl;
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
             return;
         }
 
             cout << "Enter book ID:" << endl;
             show_avilable_books();
-            cin >> book_choice;
+            book_choice = get_int_input();
 
         if (!check_book_choice(book_choice, book_index))
         {
             cout << "Book ID was writed incorrectly" << endl;
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
             return;
         }
 
-       users[user_index].add_book(library[book_index].get_name());
+       users[user_index].add_ID_book(library[book_index].get_ID());
        library[book_index].borrow_book();
-       LibrarySystem::Pause();
-       LibrarySystem::clearScreen();
+       Pause();
+       clearScreen();
     }
 
     void LibrarySystem::return_book()
@@ -199,20 +274,20 @@ using namespace std;
         if (users.empty())
         {
             cout << "There are no users!" << endl;
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
             return;
         }
 
             cout << "Select a user who wants to return a book:" << endl;
             show_users();
-            cin >> user_choice;
+            user_choice = get_int_input();
 
         if (!check_user_choice(user_choice, user_index))
         {
             cout << "User ID is writed incorrectly!" << endl;
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
             return;
         }
             cout << "Select a book to return: " << endl;
@@ -220,26 +295,26 @@ using namespace std;
         if (users[user_choice].get_user_books().size() != 0)
         {
             cout << "This user has no books" << endl;
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
             return;
         }
 
             show_user_books(user_choice);
-            cin >> book_choice;
+            book_choice = get_int_input();
 
        if (!check_book_choice(book_choice, book_index))
        {
             cout << "Book ID was writed incorrectly" << endl;
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
             return;
        }
 
-            users[user_index].remove_book(users[user_index].get_user_books()[book_index]);
+            users[user_index].remove_ID_book(users[user_index].get_user_books()[book_index]);
             library[book_index].return_book();
-            LibrarySystem::Pause();
-            LibrarySystem::clearScreen();
+            Pause();
+            clearScreen();
     }
 
     void LibrarySystem::print_lists()
@@ -247,66 +322,51 @@ using namespace std;
         int help_choice = 0;
         while (help_choice != 4)
         {
-            cout << "Which list of book do you want to see?" << endl;
-            cout << "1 - List of all books" << endl;
-            cout << "2 - List of available books" << endl;
-            cout << "3 - List of unavailable books" << endl;
-            cout << "4 - exit" << endl;
-            cin >> help_choice;
-            LibrarySystem::clearScreen();
+            print_menu_lists();
+            help_choice = get_int_input();
 
             switch (help_choice)
             {
             case 1:
             {
-                if (library.size()!= 0)
-                {
-                    for (int i = 0; i < library.size(); i++)
-                    {
-                        cout << i + 1 << ". " << library[i].get_name() << endl;
-                    }
-                }
-                else
+                if (library.empty())
                 {
                     cout << "There are no books" << endl;
+                    Pause();
+                    clearScreen();
+                    return;
                 }
 
+                show_all_books();
+                Pause();
                 break;
             }
             case 2:
             {
-                if (has_books())
+                if (!has_available_books())
                 {
-                    int j = 1;
-                    for (int i = 0; i < library.size(); i++)
-                    {
-                        if (library[i].is_available())
-                        {
-                            cout << j << ". " << library[i].get_name() << endl;
-                            j++;
-                        }
-                    }
+                    cout << "There are no avilable books" << endl;
+                    Pause();
+                    clearScreen();
+                    return;
                 }
-                else cout << "There are no avilable books" << endl;
-
+                    
+                show_avilable_books();
+                Pause();
                 break;
             }
             case 3:
             {
-                if (!has_books())
+                if (!has_unavailable_books())
                 {
-                    int j = 1;
-                    for (int i = 0; i < library.size(); i++)
-                    {
-                        if (library[i].is_available() == false)
-                        {
-                            cout << j << ". " << library[i].get_name() << endl;
-                            j++;
-                        }
-                    }
+                    cout << "There are no unavailable books" << endl;
+                    Pause();
+                    clearScreen();
+                    return;
                 }
-                else cout << "There are no unavailable books" << endl;
 
+                show_unavailable_books();
+                Pause();
                 break;
             }
             case 4:
@@ -316,11 +376,12 @@ using namespace std;
             default:
             {
                 cout << "This is not an option!" << endl;
+                Pause();
                 break;
             }
             }
         }
-        LibrarySystem::clearScreen();
+        clearScreen();
     }
 
     void LibrarySystem::save_library()
@@ -403,7 +464,7 @@ using namespace std;
             for (int i = 0; i < books_count; i++)
             {
                 getline(user_list, book_name);
-                users.back().add_book(book_name);
+                users.back().add_ID_book(book_name);
             }
         }
     }
