@@ -3,14 +3,19 @@
 
 using namespace std;
 
-Book::Book(const string& n, bool a)
+Book::Book(string n, string id, bool a)
 {
     name = n;
+    ID = id;
     available = a;
 }
 string Book::get_name() const
 {
     return name;
+}
+string Book::get_ID() const
+{
+    return ID;
 }
 bool Book::is_available() const
 {

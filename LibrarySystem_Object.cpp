@@ -23,6 +23,7 @@ int main()
         int choice;
         cin >> choice;
         cin.ignore();
+        General.clearScreen();
         switch (choice)
         {
         case 1:

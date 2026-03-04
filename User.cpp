@@ -5,7 +5,7 @@
 
     using namespace std;
 
-    User::User(string n, string s, int i)
+    User::User(string n, string s, string i)
     {
         name = n;
         surname = s;
@@ -19,7 +19,7 @@
     {
         return surname;
     }
-    int User::get_ID() const
+    string User::get_ID() const
     {
         return ID;
     }
