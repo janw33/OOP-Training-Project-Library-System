@@ -9,6 +9,7 @@ private:
     std::string surname;
     std::string ID;
     std::vector<std::string>user_ID_books;
+
 public:
     User(std::string n, std::string s, std::string i);
     std::string get_name() const;

@@ -17,6 +17,7 @@ private:
     bool has_unavailable_books();
     bool has_user_id(int id);
     bool has_book_id(int id);
+
     //print:
     void print_menu_lists();
     void show_users();
@@ -28,14 +29,17 @@ private:
 public:
     // input:
     int get_int_input();
+
     // cosmetical methods:
     void Pause(); 
     void clearScreen(); 
 
     // program functions:
     void print_menu();
-    void add_book(); 
+    void add_book();
+    void delete_book();
     void add_user(); 
+    void delete_user();
     void borrow_book();
     void return_book();
     void print_lists();

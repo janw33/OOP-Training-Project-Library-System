@@ -33,25 +33,35 @@ int main()
         }
         case 2:
         {
-            General.add_user();
+            General.delete_book();
             break;
         }
         case 3:
         {
-            General.borrow_book();
+            General.add_user();
             break;
         }
         case 4:
         {
-            General.return_book();
+            General.delete_user();
             break;
         }
         case 5:
         {
-            General.print_lists();
+            General.borrow_book();
             break;
         }
         case 6:
+        {
+            General.return_book();
+            break;
+        }
+        case 7:
+        {
+            General.print_lists();
+            break;
+        }
+        case 8:
         {
             cout << "Goodbye!" << endl;
             General.save_library();
@@ -59,7 +69,7 @@ int main()
             return 0;
             break;
         }
-        case 7:
+        case 9:
         {
             cout << "Program is restarting" << endl;
             ofstream user_list("user_list.txt");
