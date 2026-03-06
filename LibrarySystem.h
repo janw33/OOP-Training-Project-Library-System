@@ -11,7 +11,8 @@ private:
 
     //safety methods private
     bool check_user_choice(int x, int &help); 
-    bool check_book_choice(int x, int &help);
+    bool borrow_check_book_choice(int x, int &help);
+    bool return_check_book_choice(int x, int& help);
     bool has_available_books();
     bool has_unavailable_books();
     bool has_user_id(int id);
@@ -22,7 +23,7 @@ private:
     void show_all_books();
     void show_avilable_books();
     void show_unavailable_books();
-    void show_user_books(int user_choice);
+    void show_user_books(int user_choice); // for now showing only book ID!
 
 public:
     // input:
