@@ -30,8 +30,8 @@ int main()
         case 5: General.borrow_book(); break;
         case 6: General.return_book(); break;
         case 7: General.print_lists(); break;
-
-        case 8:
+        case 8: General.show_statisctic(); break;
+        case 9:
             cout << "Goodbye!" << endl;
             General.save_library();
             General.save_users();

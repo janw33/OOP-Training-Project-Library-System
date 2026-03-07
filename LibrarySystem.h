@@ -18,6 +18,9 @@ private:
     bool has_user_id(int id); // Checks if a user with the given ID already exists.
     bool has_book_id(int id);   // Checks if a book with the given ID already exists.
 
+    // count
+    int availableBooksCount();
+
     //print:
     void print_menu_lists();
     void show_users();
@@ -43,6 +46,7 @@ public:
     void borrow_book();
     void return_book();
     void print_lists();
+    void show_statisctic();
 
     // save/load to file methods:
     void save_library();
