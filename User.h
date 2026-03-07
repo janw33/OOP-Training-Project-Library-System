@@ -7,15 +7,18 @@ class User
 private:
     std::string name;
     std::string surname;
-    std::string ID;
-    std::vector<std::string>user_ID_books;
+    int ID;
+    std::vector<int>user_ID_books;
 
 public:
-    User(std::string n, std::string s, std::string i);
+    User(std::string n, std::string s, int id);
+
+    // getters:
     std::string get_name() const;
     std::string get_surname() const;
-    std::string get_ID() const;
-    const std::vector<std::string>& get_user_books() const;
-    void add_ID_book(std::string help);
-    void remove_ID_book(std::string help);
+    int get_ID() const;
+    const std::vector<int> &get_user_books() const;
+
+    void add_book(int help);
+    void remove_book(int help);
 };

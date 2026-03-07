@@ -5,24 +5,24 @@
 
 class LibrarySystem {
 private:
-    //data:
+    //data
     std::vector<Book>library;
     std::vector<User>users;
 
     //safety methods private
-    bool check_user_choice(int x, int &help); 
-    bool borrow_check_book_choice(int x, int &help);
-    bool return_check_book_choice(int x, int& help);
-    bool has_available_books();
-    bool has_unavailable_books();
-    bool has_user_id(int id);
-    bool has_book_id(int id);
+    bool check_user_choice(int id, int &index);  // Checks if a user with the given ID exists and returns its index
+    bool borrow_check_book_choice(int id, int &index);   // Checks if a book with the given ID exists and is available to borrow.
+    bool return_check_book_choice(int id, int &index);   // Checks if a book with the given ID exists and is currently borrowed.
+    bool has_available_books();  // Returns true if there is at least one available book.
+    bool has_unavailable_books();  // Returns true if there is at least one borrowed book.
+    bool has_user_id(int id); // Checks if a user with the given ID already exists.
+    bool has_book_id(int id);   // Checks if a book with the given ID already exists.
 
     //print:
     void print_menu_lists();
     void show_users();
     void show_all_books();
-    void show_avilable_books();
+    void show_available_books();
     void show_unavailable_books();
     void show_user_books(int user_choice); // for now showing only book ID!
 

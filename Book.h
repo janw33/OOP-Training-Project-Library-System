@@ -5,14 +5,16 @@ class Book
 {
 private:
     std::string name;
-    std::string ID;
+    int ID;
     bool available;
 
 public:
-    Book(std::string name, std::string id, bool available);
+    Book(std::string name, int id, bool available);
+
     std::string get_name() const;
-    std::string get_ID() const;
+    int get_ID() const;
     bool is_available() const;
+
     void borrow_book();
     void return_book();
 };

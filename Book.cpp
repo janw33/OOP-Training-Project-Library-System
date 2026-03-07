@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Book::Book(string n, string id, bool a)
+Book::Book(string n, int id, bool a)
 {
     name = n;
     ID = id;
@@ -13,7 +13,7 @@ string Book::get_name() const
 {
     return name;
 }
-string Book::get_ID() const
+int Book::get_ID() const
 {
     return ID;
 }
